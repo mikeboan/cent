@@ -4,10 +4,48 @@ The lightweight DOM manipulation library
 ## In Action
 Run snake.html to play Snake in-browser. This version of snake uses $cent to update the DOM in real time in response to user input.
 
-## Features and Implementation
-$cent provides convenient methods for interacting with the DOM, all centered around the DOMNodeCollection object. This object allows users to store lists of DOM nodes and operate on them via provided functions.
+Example of $cent usage:
+```javascript
+// programatically build out game grid
+$cent('.game').html("");
+for (let row = 0; row < boardDimension; row++) {
+  for (let col = 0; col < boardDimension; col++) {
+    $cent('.game').append(`<div class='tile' id=r-${row}-c-${col}></div>`);
+  }
+}
+```
 
-Sample functions include:
+```javascript
+// increase length of snake if snake eats food
+if (snake[0] === food) {
+  snake.push(tail);
+  $cent(`#${tail}`).addClass('snake');
+  $cent(`#${food}`).removeClass('food');
+  placeFood();
+}
+```
+
+```javascript
+// add event listener for keydown
+$cent('body').on('keydown', (e) => {
+  switch(e.keyCode) {
+    // ...
+  }
+});
+```
+
+## Features and Implementation
+$cent provides convenient methods for interacting with the DOM, all centered around the DOMNodeCollection data type. This data type allows users to store lists of DOM nodes and operate on them via provided functions.
+
+A DOMNodeCollection object can be instantiated by using the $cent function to find or create new DOM nodes. Ex:
+```javascript
+let existingUl = $cent("ul");
+// returns a DOMNodeCollection of all existing unordered lists
+let newDiv = $cent("<div class='new-div'><div>");
+// returns a DOMNodeCollection with contents of new div which can be inserted into DOM.
+```
+
+Sample functions on DOMNodeCollection include:
 ```javascript
 /**
 *  Return new DOMNodeCollection of elements matching provided
