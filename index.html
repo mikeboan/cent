@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="./lib/cent.js"></script>
+    <meta charset="utf-8">
+    <title></title>
+
+    <script>
+      window.$cent( () => console.log('finished loading DOM'));
+      window.$cent( () => console.log($cent("li")));
+    </script>
+
+  </head>
+  <body>
+    <h1 name="header">$cent - a lightweight DOM manipulation library</h1>
+    <a href="" name="link1">link to a thing</a>
+    <br>
+    <a href="" name="link2">link to another thing</a>
+    <ul data-thing="stuff">
+      <li class="list-item">thing 1</li>
+      <li class="list-item">thing 2</li>
+      <li class="list-item">thing 3
+        <ul>
+          <li>thing 3a</li>
+          <li>thing 3b</li>
+          <li>thing 3c</li>
+        </ul>
+      </li>
+      <li class="list-item">thing 4</li>
+    </ul>
+    <div class="class1">
+      div thing
+    </div>
+    <div class="class2">
+      another div thing
+    </div>
+  </body>
+</html>
