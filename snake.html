@@ -6,8 +6,9 @@
     <script type="text/javascript" src="./lib/cent.js"></script>
     <style>
     .game {
-      width:800px;
-      height: 80px;
+      width: 600px;
+      height: 600px;
+      margin: 0 auto;
     }
 
     .tile {
@@ -26,9 +27,46 @@
     .food {
       background: red;
     }
+
+    header {
+      text-align: center;
+    }
+
+    h1, h2, h3 {
+      font-family: sans-serif;
+    }
+
+    h1 {
+      color: blue;
+      font-size: 36px;
+    }
+
+    h2 {
+      font-size: 24px;
+    }
+
+    h3 {
+      font-size: 16px;
+    }
     </style>
   </head>
   <body>
+    <header>
+      <h1>
+        Snake
+      </h1>
+
+      <h2>
+        Michael Boan
+      <h2>
+
+      <h3>
+        A proof of concept for
+        <a href='https://github.com/mikeboan/cent'>$cent</a>,
+        the mini DOM manipulation library
+      </h3>
+    </header>
+
     <div class='game'>
     </div>
   </body>
@@ -37,21 +75,22 @@
   let refreshInterval;
   let direction;
   let food;
+  const boardDimension = 30;
 
   const snakeTile = function (row, col) {
     return $cent(`#r-${row}-c-${col}`).hasClass('snake');
   }
 
   const inBounds = function (row, col) {
-    return row >= 0 && row < 40 && col >= 0 && col < 40;
+    return row >= 0 && row < boardDimension && col >= 0 && col < boardDimension;
   }
 
   const placeFood = function () {
-    let foodRow = Math.floor(Math.random() * 39);
-    let foodCol = Math.floor(Math.random() * 39);
+    let foodRow = Math.floor(Math.random() * (boardDimension - 1));
+    let foodCol = Math.floor(Math.random() * (boardDimension - 1));
     while (snakeTile(foodRow, foodCol)) {
-      foodRow = Math.floor(Math.random() * 39);
-      foodCol = Math.floor(Math.random() * 39);
+      foodRow = Math.floor(Math.random() * (boardDimension - 1));
+      foodCol = Math.floor(Math.random() * (boardDimension - 1));
     }
     food = `r-${foodRow}-c-${foodCol}`;
     $cent(`#${food}`).addClass('food');
@@ -82,7 +121,6 @@
 
     if (snakeTile(headRow, headCol) || !inBounds(headRow, headCol)) {
       alert('You lose!');
-      // initialize();
       return;
     }
 
@@ -101,15 +139,21 @@
   }
 
   const initialize = function () {
-    snake = ['r-19-c-19', 'r-19-c-18', 'r-19-c-17', 'r-19-c-16', 'r-19-c-15'];
+    const initialRow = Math.floor(boardDimension / 2);
+    const initialCol = initialRow;
+    snake = [`r-${initialRow}-c-${initialCol}`,
+      `r-${initialRow}-c-${initialCol - 1}`,
+      `r-${initialRow}-c-${initialCol - 2}`,
+      `r-${initialRow}-c-${initialCol - 3}`
+    ];
     food = "";
-    refreshInterval = 200;
+    refreshInterval = 150;
     direction = 'down';
 
     // add tiles to game board
     $cent('.game').html("");
-    for (let row = 0; row < 40; row++) {
-      for (let col = 0; col < 40; col++) {
+    for (let row = 0; row < boardDimension; row++) {
+      for (let col = 0; col < boardDimension; col++) {
         $cent('.game').append(`<div class='tile' id=r-${row}-c-${col}></div>`);
       }
     }
