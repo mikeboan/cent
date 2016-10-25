@@ -14,7 +14,7 @@
     .tile {
       height: 19px;
       width: 19px;
-      background: gray;
+      background: lightgray;
       border-top: 1px solid white;
       border-left: 1px solid white;
       float: left;
@@ -53,7 +53,7 @@
   <body>
     <header>
       <h1>
-        Snake
+        $nake
       </h1>
 
       <h2>
@@ -170,15 +170,19 @@
   $cent('body').on('keydown', (e) => {
     switch(e.keyCode) {
       case 37:
+        e.preventDefault();
         direction = 'left';
         break;
       case 38:
+        e.preventDefault();
         direction = 'up';
         break;
       case 39:
+        e.preventDefault();
         direction = 'right';
         break;
       case 40:
+        e.preventDefault();
         direction = 'down';
         break;
     }
